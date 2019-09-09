@@ -23,8 +23,3 @@ variable "public_key" {
   default     = "id_rsa.pub"
   description = "SSH public key"
 }
-
-variable "security_group" {
-  type        = string
-  description = "Security group ID"
-}

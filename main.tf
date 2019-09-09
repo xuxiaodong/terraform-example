@@ -6,6 +6,13 @@ provider "aws" {
   region = var.region
 }
 
+data "aws_security_groups" "default" {
+  filter {
+    name   = "group-name"
+    values = ["default"]
+  }
+}
+
 resource "aws_instance" "web" {
   ami           = lookup(var.amis, var.region)
   instance_type = var.instance_type
@@ -29,7 +36,7 @@ resource "aws_security_group_rule" "ssh" {
   to_port           = 22
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = var.security_group
+  security_group_id = data.aws_security_groups.default.ids[0]
 }
 
 # 开放 80 端口，允许 Web 访问
@@ -39,5 +46,5 @@ resource "aws_security_group_rule" "web" {
   to_port           = 80
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = var.security_group
+  security_group_id = data.aws_security_groups.default.ids[0]
 }
