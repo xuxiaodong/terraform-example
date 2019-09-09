@@ -31,3 +31,13 @@ resource "aws_security_group_rule" "ssh" {
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = var.security_group
 }
+
+# 开放 80 端口，允许 Web 访问
+resource "aws_security_group_rule" "web" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = var.security_group
+}
