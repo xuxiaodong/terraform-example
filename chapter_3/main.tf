@@ -22,19 +22,24 @@ resource "aws_instance" "ss" {
     Name = "ss-server"
   }
 
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = file("id_rsa")
+    host        = aws_instance.ss.public_ip
+  }
+
+  provisioner "file" {
+    content     = templatefile("ss-config.json", { server = aws_instance.ss.public_ip, password = var.ss_password })
+    destination = "/var/tmp/ss-config.json"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "sudo apt update",
       "sudo apt install -y docker.io",
-      "sudo docker run -e PASSWORD=${var.ss_password} -p 8388:8388 -p 8388:8388/udp -d shadowsocks/shadowsocks-libev",
+      "sudo docker run -v /var/tmp:/var/tmp -e ARGS='-c /var/tmp/ss-config.json' -p 8388:8388 -p 8388:8388/udp -d shadowsocks/shadowsocks-libev",
     ]
-
-    connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      private_key = file("id_rsa")
-      host        = aws_instance.ss.public_ip
-    }
   }
 }
 
