@@ -28,4 +28,3 @@ variable "ss_password" {
   type        = string
   description = "SS password"
 }
-
