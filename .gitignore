@@ -3,3 +3,5 @@ terraform.tfstate*
 id_rsa.pub
 terraform.tfvars
 id_rsa
+pkg
+vendor
