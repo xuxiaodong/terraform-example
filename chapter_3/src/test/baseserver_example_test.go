@@ -30,10 +30,10 @@ func TestBaseserverExample(t *testing.T)  {
 
 	// 期望得到的 HTTP 状态及消息
 	expectedStatus := 200
-	expectedBody := "Hello, 2019"
+	expectedBody := "Created: Hello, 2019"
 
 	// 设置重试次数
-	maxRetries := 10
+	maxRetries := 30
 	timeBetweenRetries := 10 * time.Second
 
 	// 验证 HTTP
