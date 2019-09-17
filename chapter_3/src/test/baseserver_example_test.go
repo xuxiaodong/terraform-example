@@ -16,7 +16,7 @@ func TestBaseserverExample(t *testing.T)  {
 	}
 
 	// 测试完成后，执行 `terraform destroy` 清理资源
-	defer terraform.Destroy(t, terraformOptions)
+	defer terraform.Destroy(t, opts)
 
 	// 初始化并运行 Terraform 代码
 	terraform.InitAndApply(t, opts)
