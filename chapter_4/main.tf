@@ -12,7 +12,7 @@ module "ssh-key-name" {
 }
 
 module "nginx-server" {
-  source = "./modules/base-server-foreach"
+  source = "./modules/base-server-if"
 
   server_name   = "nginx-server"
   server_port   = 80
