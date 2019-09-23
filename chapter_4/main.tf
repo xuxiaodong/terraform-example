@@ -1,5 +1,5 @@
 /*
- * 应用基础服务器模块 (含 count 元参数)
+ * 应用基础服务器模块
  */
 provider "aws" {
   region = "ap-northeast-1"
@@ -12,7 +12,7 @@ module "ssh-key-name" {
 }
 
 module "nginx-server" {
-  source = "./modules/base-server-if"
+  source = "./modules/base-server-lb"
 
   server_name   = "nginx-server"
   server_port   = 80
